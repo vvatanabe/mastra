@@ -27,10 +27,17 @@ const DEFAULT_IDLE_TIMEOUT_MS = 30000;
 
 export { exportSchemas } from './db';
 // Export domain classes for direct use with MastraStorage composition
-export { AgentsPG, MemoryPG, ObservabilityPG, ScoresPG, WorkflowsPG };
+export { AgentsPG, AgentsPGRW } from './domains/agents';
+export { MemoryPG, MemoryPGRW } from './domains/memory';
+export { ObservabilityPG, ObservabilityPGRW } from './domains/observability';
+export { ScoresPG, ScoresPGRW } from './domains/scores';
+export { WorkflowsPG, WorkflowsPGRW } from './domains/workflows';
 export { PoolAdapter } from './client';
 export type { DbClient, TxClient, QueryValues, Pool, PoolClient, QueryResult } from './client';
 export type { PgDomainConfig, PgDomainClientConfig, PgDomainPoolConfig, PgDomainRestConfig } from './db';
+
+export { PostgresRWStore } from './rw-store';
+export type { RWDomainConfig } from './rw-types';
 
 /**
  * PostgreSQL storage adapter for Mastra.

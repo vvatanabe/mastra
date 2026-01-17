@@ -36,6 +36,9 @@ function transformScoreRow(row: Record<string, any>): ScoreRowData {
   });
 }
 
+// Re-export RW facade
+export { ScoresPGRW } from './rw';
+
 export class ScoresPG extends ScoresStorage {
   #db: PgDB;
   #schema: string;

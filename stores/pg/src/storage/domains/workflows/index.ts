@@ -36,6 +36,9 @@ function sanitizeJsonForPg(jsonString: string): string {
   return jsonString.replace(/\\u(0000|[Dd][89A-Fa-f][0-9A-Fa-f]{2})/g, '');
 }
 
+// Re-export RW facade
+export { WorkflowsPGRW } from './rw';
+
 export class WorkflowsPG extends WorkflowsStorage {
   #db: PgDB;
   #schema: string;

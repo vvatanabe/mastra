@@ -128,6 +128,56 @@ export type PgVectorConfig = (ConnectionStringConfig | HostConfig | (PostgresBas
 };
 
 /**
+ * Configuration for PostgresRWStore with read/write pool separation.
+ *
+ * @example
+ * ```typescript
+ * import { Pool } from 'pg';
+ * import { PostgresRWStore } from '@mastra/pg';
+ *
+ * const writerPool = new Pool({ connectionString: 'postgresql://primary/db' });
+ * const readerPool = new Pool({ connectionString: 'postgresql://replica/db' });
+ *
+ * const store = new PostgresRWStore({
+ *   id: 'my-store',
+ *   writerPool,
+ *   readerPool,
+ *   ownsWriterPool: true,
+ *   ownsReaderPool: true,
+ * });
+ * ```
+ */
+export interface PostgresRWStoreConfig extends PostgresBaseConfig {
+  /**
+   * Pool connected to the primary database for write operations.
+   * All INSERT, UPDATE, DELETE, and DDL queries are routed here.
+   */
+  writerPool: Pool;
+
+  /**
+   * Pool connected to a read replica for read operations.
+   * All SELECT queries are routed here (except within transactions).
+   */
+  readerPool: Pool;
+
+  /**
+   * Whether PostgresRWStore owns the lifecycle of the writer pool.
+   * If true, writerPool.end() will be called when store.close() is invoked.
+   *
+   * @default false
+   */
+  ownsWriterPool?: boolean;
+
+  /**
+   * Whether PostgresRWStore owns the lifecycle of the reader pool.
+   * If true, readerPool.end() will be called when store.close() is invoked.
+   *
+   * @default false
+   */
+  ownsReaderPool?: boolean;
+}
+
+/**
  * Type guard for pre-configured pg.Pool config
  */
 export const isPoolConfig = (cfg: PostgresStoreConfig): cfg is PoolInstanceConfig => {

@@ -57,6 +57,9 @@ function inPlaceholders(count: number, startIndex = 1): string {
   return Array.from({ length: count }, (_, i) => `$${i + startIndex}`).join(', ');
 }
 
+// Re-export RW facade
+export { MemoryPGRW } from './rw';
+
 export class MemoryPG extends MemoryStorage {
   #db: PgDB;
   #schema: string;

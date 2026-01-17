@@ -19,6 +19,9 @@ import { PgDB, resolvePgConfig } from '../../db';
 import type { PgDomainConfig } from '../../db';
 import { getTableName, getSchemaName } from '../utils';
 
+// Re-export RW facade
+export { AgentsPGRW } from './rw';
+
 export class AgentsPG extends AgentsStorage {
   #db: PgDB;
   #schema: string;

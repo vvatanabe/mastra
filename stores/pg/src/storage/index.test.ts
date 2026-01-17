@@ -14,7 +14,7 @@ import { MemoryPG } from './domains/memory';
 import { ScoresPG } from './domains/scores';
 import { WorkflowsPG } from './domains/workflows';
 import { pgTests, TEST_CONFIG, connectionString } from './test-utils';
-import { PostgresStore } from '.';
+import { PostgresStore, PostgresRWStore } from '.';
 
 vi.setConfig({ testTimeout: 60_000, hookTimeout: 60_000 });
 
@@ -335,3 +335,11 @@ describe('PostgresStore pool integration', () => {
     await expect(store.pool.query('SELECT 1')).rejects.toThrow();
   });
 });
+
+createTestSuite(new PostgresRWStore({
+    id: 'PostgresStore',
+    writerPool: createTestPool(),
+    readerPool: createTestPool(),
+    ownsWriterPool: true,
+    ownsReaderPool: true,
+}));

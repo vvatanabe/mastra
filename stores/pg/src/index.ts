@@ -7,5 +7,6 @@ export type {
   ConnectionStringConfig,
   HostConfig,
   PoolInstanceConfig,
+  PostgresRWStoreConfig,
 } from './shared/config';
 export { PGVECTOR_PROMPT } from './vector/prompt';

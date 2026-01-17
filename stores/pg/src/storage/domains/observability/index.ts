@@ -29,6 +29,9 @@ import { PgDB, resolvePgConfig } from '../../db';
 import type { PgDomainConfig } from '../../db';
 import { transformFromSqlRow, getTableName, getSchemaName } from '../utils';
 
+// Re-export RW facade
+export { ObservabilityPGRW } from './rw';
+
 export class ObservabilityPG extends ObservabilityStorage {
   #db: PgDB;
   #schema: string;
